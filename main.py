@@ -1,11 +1,14 @@
-from tkinter import *
+import tkinter as tk
 
-window = Tk()
-# add widgets here
+window = tk.Tk()
 
+frame1 = tk.Frame(master=window, width=200, height=100, bg="red")
+frame1.pack(fill=tk.Y, side=tk.LEFT)
 
+frame2 = tk.Frame(master=window, width=100, bg="yellow")
+frame2.pack(fill=tk.Y, side=tk.LEFT)
 
-window.title('Hello Python')
-window.geometry("300x200+10+20")
+frame3 = tk.Frame(master=window, width=50, bg="blue")
+frame3.pack(fill=tk.Y, side=tk.LEFT)
+
 window.mainloop()
-# mamma mia
