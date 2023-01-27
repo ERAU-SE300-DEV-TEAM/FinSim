@@ -1,14 +1,9 @@
-import tkinter as tk
+from tkinter import *
 
-window = tk.Tk()
+root = Tk()
 
-frame1 = tk.Frame(master=window, width=200, height=100, bg="red")
-frame1.pack(fill=tk.Y, side=tk.LEFT)
 
-frame2 = tk.Frame(master=window, width=100, bg="yellow")
-frame2.pack(fill=tk.Y, side=tk.LEFT)
+root.title("Hello Python")
 
-frame3 = tk.Frame(master=window, width=50, bg="blue")
-frame3.pack(fill=tk.Y, side=tk.LEFT)
+root.mainloop()
 
-window.mainloop()
