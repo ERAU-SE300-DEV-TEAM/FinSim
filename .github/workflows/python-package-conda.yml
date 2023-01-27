@@ -25,7 +25,8 @@ jobs:
         
     - name: Install dependencies
       run: |
-        conda update --file environment.yml --name base
+        conda create -n develop python=3.9
+        conda update --file develop.yml --name base
         
     - name: Lint with flake8
       run: |
