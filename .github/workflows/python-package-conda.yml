@@ -6,10 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
+  build-OSX:
+    runs-on: macos-12
 
     steps:
     - uses: actions/checkout@v3
