@@ -3,7 +3,7 @@ import customtkinter
 
 # THIS IS THE START MENU SCREEN
 customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
-customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
+customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
 
 root = customtkinter.CTk()  # create CTk window like you do with the Tk window
