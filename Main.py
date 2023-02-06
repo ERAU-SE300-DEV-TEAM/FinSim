@@ -54,5 +54,4 @@ b2.pack()
 # Insert The Fact.
 T.insert(customtkinter.END, Fact)
 
-
 root.mainloop()
