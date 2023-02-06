@@ -1,5 +1,6 @@
 # Imports
 import array as arr
+from FinSimController import *
 
 # Class/ Attribute Definitions
 menuChoice = arr.array("i")
@@ -11,3 +12,4 @@ def menu():
 
 # Body of Code
 menu()
+controllerMain(menuChoice)
