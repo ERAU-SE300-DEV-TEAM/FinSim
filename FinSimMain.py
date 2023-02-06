@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Imports
 import array as arr
 
@@ -11,3 +12,7 @@ def menu():
 
 # Body of Code
 menu()
+=======
+#words
+
+>>>>>>> Stashed changes
