@@ -30,28 +30,4 @@ cont.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 leave = customtkinter.CTkButton(master=root, text="Exit Simulation", fg_color="red")
 leave.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
 
-# Create text widget and specify size.
-T = tkinter.Text(root, height=5, width=52)
-
-# Create label
-l = tkinter.Label(root, text="Fact of the Day")
-l.config(font=("Courier", 14))
-
-Fact = """A man can be arrested in
-Italy for wearing a skirt in public."""
-
-# Create button for next text.
-b1 = tkinter.Button(root, text="Next", )
-
-# Create an Exit button.
-b2 = tkinter.Button(root, text="Exit", command=root.destroy)
-
-l.pack()
-T.pack()
-b1.pack()
-b2.pack()
-
-# Insert The Fact.
-T.insert(customtkinter.END, Fact)
-
 root.mainloop()

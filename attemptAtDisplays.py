@@ -1,15 +1,13 @@
-import tkinter
-import customtkinter
-
+import tkinter as tk
 
 LARGE_FONT = ("Verdana", 12)
 
 
-class SeaofBTCapp(tkinter.Tk):
+class Simulation(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        tkinter.Tk.__init__(self, *args, **kwargs)
-        container = tkinter.Frame(self)
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self)
 
         container.pack(side="top", fill="both", expand=True)
 
@@ -32,50 +30,35 @@ class SeaofBTCapp(tkinter.Tk):
         frame.tkraise()
 
 
-class StartPage(customtkinter.Frame):
-    # Define image
-    bg = tkinter.PhotoImage(file="lottomoney.png")
-
-    # Create a canvas
-    my_canvas = tkinter.Canvas(root, width=800, height=500)
-    my_canvas.pack(fill="both", expand=True)
-
-    # Set image in canvas
-    my_canvas.create_image(0, 0, image=bg, anchor="nw")
-
-    # Add a label
-    my_canvas.create_text(350, 100, text="Welcome!", font=("Helvetica", 50), fill="Black")
-
-    new_sim = customtkinter.CTkButton(master=root, text="New Simulation", fg_color="violet", text_color="Black")
-    new_sim.place(relx=0.5, rely=0.3, anchor=tkinter.CENTER)
-
-    cont = customtkinter.CTkButton(master=root, text="Continue", fg_color="Green")
-    cont.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
-
-    leave = customtkinter.CTkButton(master=root, text="Exit Simulation", fg_color="red")
-    leave.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
+class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        tkinter.Frame.__init__(self, parent)
-        label = tkinter.Label(self, text="Start Page", font=LARGE_FONT)
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button = tkinter.Button(self, text="Visit Page 1",
+        button = tk.Button(self, text="Visit Main Page",
                            command=lambda: controller.show_frame(MainPage))
         button.pack()
 
+        button2 = tk.Button(self, text="EXIT")
+        button2.pack()
 
-class MainPage(tkinter.Frame):
+
+class MainPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        tkinter.Frame.__init__(self, parent)
-        label = customtkinter.Label(self, text="Main Page!!!", font=LARGE_FONT)
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Main Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button1 = tkinter.Button(self, text="Back to Home",
-                                 command=lambda: controller.show_frame(StartPage))
+        button1 = tk.Button(self, text="Back to Start",
+                            command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
+        button2 = tk.Button(self, text="EXIT")
+        button2.pack()
 
-root = SeaofBTCapp()
-root.mainloop()
+
+app = Simulation()
+app.mainloop()
