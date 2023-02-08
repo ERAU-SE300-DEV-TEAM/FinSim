@@ -32,12 +32,12 @@ class StartPage(tk.Frame):
         BGlabel = tk.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
-        label = tk.Label(self, text="This is the start page", font=TITLE_FONT)
+        label = tk.Label(self, text="Menu", font=TITLE_FONT)
         label.place(x=0, y=0, width=592, height=44)
 
-        button1 = tk.Button(self, text="Go to Page One",
+        button1 = tk.Button(self, text="Simulator",
                             command=lambda: controller.show_frame(MainSim))
-        button2 = tk.Button(self, text="Go to Page two",
+        button2 = tk.Button(self, text="Extra Page",
                             command=lambda: controller.show_frame(OtherPage))
         button3 = tk.Button(self, text="Exit",
                             command=self.quit)
@@ -53,10 +53,10 @@ class MainSim(tk.Frame):
         BGlabel = tk.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
-        label = tk.Label(self, text="This is page one", font=TITLE_FONT)
+        label = tk.Label(self, text="Simulator", font=TITLE_FONT)
         label.place(x=0, y=0, width=592, height=44)
 
-        button1 = tk.Button(self, text="Go to Start Page",
+        button1 = tk.Button(self, text="Menu",
                             command=lambda: controller.show_frame(StartPage))
         # button2 = tk.Button(self, text="Go to Page two",
         #                   command=lambda: controller.show_frame(PageTwo))
@@ -73,10 +73,10 @@ class OtherPage(tk.Frame):
         BGlabel = tk.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
-        label = tk.Label(self, text="This is page two", font=TITLE_FONT)
+        label = tk.Label(self, text="Extra", font=TITLE_FONT)
         label.place(x=0, y=0, width=592, height=44)
 
-        button1 = tk.Button(self, text="Go to Start Page",
+        button1 = tk.Button(self, text="Menu",
                             command=lambda: controller.show_frame(StartPage))
         # button2 = tk.Button(self, text="Go to Page two",
         #                   command=lambda: controller.show_frame(PageTwo))
