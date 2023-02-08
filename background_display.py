@@ -13,7 +13,7 @@ class Simulator(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (StartPage, PageOne, PageTwo):
+        for F in (StartPage, MainSim, OtherPage):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -36,9 +36,9 @@ class StartPage(tk.Frame):
         label.place(x=0, y=0, width=592, height=44)
 
         button1 = tk.Button(self, text="Go to Page One",
-                            command=lambda: controller.show_frame(PageOne))
+                            command=lambda: controller.show_frame(MainSim))
         button2 = tk.Button(self, text="Go to Page two",
-                            command=lambda: controller.show_frame(PageTwo))
+                            command=lambda: controller.show_frame(OtherPage))
         button3 = tk.Button(self, text="Exit",
                             command=self.quit)
         button1.place(x=100, y=406, width=200, height=44)
@@ -46,7 +46,7 @@ class StartPage(tk.Frame):
         button3.place(x=500, y=406, width=80, height=44)
 
 
-class PageOne(tk.Frame):
+class MainSim(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         logo = tk.PhotoImage(file="lottomoney.png")
@@ -66,7 +66,7 @@ class PageOne(tk.Frame):
         button3.place(x=300, y=406, width=200, height=44)
 
 
-class PageTwo(tk.Frame):
+class OtherPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         logo = tk.PhotoImage(file="lottomoney.png")
