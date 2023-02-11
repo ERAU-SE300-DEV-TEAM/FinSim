@@ -9,7 +9,7 @@ root.title('Background Image')
 root.geometry("700x800")
 
 # Define image
-bg = tkinter.PhotoImage(file="lottomoney.png")
+bg = tkinter.PhotoImage(file="../lottomoney.png")
 
 # Create a canvas
 my_canvas = tkinter.Canvas(root, width=800, height=500)

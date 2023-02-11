@@ -29,7 +29,7 @@ class Simulator(customtkinter.CTk):
 class StartPage(customtkinter.Frame):
     def __init__(self, parent, controller):
         customtkinter.Frame.__init__(self, parent)
-        logo = customtkinter.PhotoImage(file="lottomoney.png")
+        logo = customtkinter.PhotoImage(file="../lottomoney.png")
         BGlabel = customtkinter.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
@@ -50,7 +50,7 @@ class StartPage(customtkinter.Frame):
 class PageOne(customtkinter.Frame):
     def __init__(self, parent, controller):
         customtkinter.Frame.__init__(self, parent)
-        logo = customtkinter.PhotoImage(file="lottomoney.png")
+        logo = customtkinter.PhotoImage(file="../lottomoney.png")
         BGlabel = customtkinter.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
@@ -70,7 +70,7 @@ class PageOne(customtkinter.Frame):
 class PageTwo(customtkinter.Frame):
     def __init__(self, parent, controller):
         customtkinter.Frame.__init__(self, parent)
-        logo = customtkinter.PhotoImage(file="lottomoney.png")
+        logo = customtkinter.PhotoImage(file="../lottomoney.png")
         BGlabel = customtkinter.Label(self, image=logo)
         BGlabel.image = logo
         BGlabel.place(x=0, y=0, width=592, height=450)
