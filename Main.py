@@ -9,7 +9,7 @@ customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-bl
 root = tkinter.Tk()  # create CTk window like you do with the Tk window
 root.geometry("700x800")
 
-#button = tk.Button(self, text="Visit Page 1",
+#button = tk.Button(bg, text="Visit Page 1",
 #                           command=lambda: controller.show_frame(PageOne))
 
 

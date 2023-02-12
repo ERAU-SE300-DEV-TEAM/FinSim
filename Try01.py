@@ -3,6 +3,12 @@ import tkinter as tk
 LARGE_FONT = ("Verdana", 12)
 
 
+# Define image
+#bg = tk.PhotoImage(file="CBGR.png")
+
+# Add image file
+#bg = PhotoImage( file = "CBGR.png")
+
 class SeaofBTCapp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
