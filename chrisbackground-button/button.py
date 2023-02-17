@@ -4,17 +4,17 @@ LARGE_FONT = ("Verdana", 12)
 
 
 # Define image
-# bg = tk.PhotoImage(file="CBGR.png")
+# bg = tk.PhotoImage(file="CBGRBaked.png")
 
 # Add image file
-# bg = PhotoImage( file = "CBGR.png")
+# bg = tk.PhotoImage(file="CBGRBaked.png")
 
-# TODO MODIFIED BY TAYLOR
-app = tk.Tk()
-StartPage = tk.Frame(app, file="CBGRBaked03.png")
+# # TODO MODIFIED BY TAYLOR
+# app = tk.Tk()
+# StartPage = tk.Frame(app, file="CBGRBaked03.png")
 
 
-# TODO MODIFIED BY TAYLOR
+# # TODO MODIFIED BY TAYLOR
 
 
 class SeaofBTCapp(tk.Tk):
