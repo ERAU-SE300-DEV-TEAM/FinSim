@@ -4,13 +4,20 @@ LARGE_FONT = ("Verdana", 12)
 
 
 # Define image
-#bg = tk.PhotoImage(file="CBGR.png")
+# bg = tk.PhotoImage(file="CBGR.png")
 
 # Add image file
-#bg = PhotoImage( file = "CBGR.png")
+# bg = PhotoImage( file = "CBGR.png")
+
+# TODO MODIFIED BY TAYLOR
+app = tk.Tk()
+StartPage = tk.Frame(app, file="CBGRBaked03.png")
+
+
+# TODO MODIFIED BY TAYLOR
+
 
 class SeaofBTCapp(tk.Tk):
-
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
@@ -37,37 +44,55 @@ class SeaofBTCapp(tk.Tk):
 
 
 class StartPage(tk.Frame):
-
     def __init__(self, parent, controller):
 
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Menu", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button = tk.Button(self, text="New Game", bg="Light blue", font='Helvetica 18 bold',
-                           command=lambda: controller.show_frame(PageOne))
+        button = tk.Button(
+            self,
+            text="New Game",
+            bg="Light blue",
+            font="Helvetica 18 bold",
+            command=lambda: controller.show_frame(PageOne),
+        )
         button.pack()
 
-        button2 = tk.Button(self, text="Continue", bg="Light blue", font='Helvetica 18 bold')
+        button2 = tk.Button(
+            self, text="Continue", bg="Light blue", font="Helvetica 18 bold"
+        )
         button2.pack()
 
-        button2 = tk.Button(self, text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
+        button2 = tk.Button(
+            self, text="Exit", bg="black", fg="white", font="Helvetica 18 bold"
+        )
         button2.pack()
 
 
 class PageOne(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="- Fin Sim -", font='Helvetica 24 bold')
+        label = tk.Label(self, text="- Fin Sim -", font="Helvetica 24 bold")
         label.pack(pady=10, padx=10)
 
-        button1 = tk.Button(self, text="Spend money", bg="Light blue", font='Helvetica 18 bold',)
+        button1 = tk.Button(
+            self,
+            text="Spend money",
+            bg="Light blue",
+            font="Helvetica 18 bold",
+        )
 
         button1.pack()
 
-        button2 = tk.Button(self, text="Return to Main Menu", bg="black", fg='white', font='Helvetica 18 bold',
-                            command=lambda: controller.show_frame(StartPage))
+        button2 = tk.Button(
+            self,
+            text="Return to Main Menu",
+            bg="black",
+            fg="white",
+            font="Helvetica 18 bold",
+            command=lambda: controller.show_frame(StartPage),
+        )
         button2.pack()
 
 
