@@ -14,7 +14,8 @@ class MyLeftPanel:
         self.instruct.grid(row=1, column=0, padx=10, pady=2)
 
         try:
-            self.imageEx = PhotoImage(file='Desktop/Phoenix.JPG')
+            self.imageEx = PhotoImage(file="Desktop/Phoenix.JPG")
             Label(self.frame, image=self.imageEx).grid(row=2, column=0, padx=10, pady=2)
         except:
             print("Image not found")
+            
