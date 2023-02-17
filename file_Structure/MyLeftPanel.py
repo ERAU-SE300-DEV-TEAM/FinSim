@@ -18,4 +18,3 @@ class MyLeftPanel:
             Label(self.frame, image=self.imageEx).grid(row=2, column=0, padx=10, pady=2)
         except:
             print("Image not found")
-            
