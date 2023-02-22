@@ -30,6 +30,9 @@ label1.place(x=0, y=0)
 def button1Function() :
     print('Submit button is clicked.')
 
+T = Text(root, height = 5, width = 52)
+T.pack()
+
 # Add buttons
 button1 = Button(text="New Simulation", bg="Light blue", font='Helvetica 18 bold')
 button1.place(relx=0.45, rely=0.5)
