@@ -13,15 +13,15 @@ LARGE_FONT = ("Verdana", 12)
 # app = tk.Tk()
 # StartPage = tk.Frame(app, file="CBGRBaked03.png")
 
-# # Create object
-# app = tk.Tk()
+# Create object
+app = tk.Tk()
 
-# # Add image file
-# bg = tk.PhotoImage(file="CBGRBaked03.png")
+# Add image file
+bg = tk.PhotoImage(file="./CBGRBaked03.png")
 
-# # Show image using label
-# label1 = tk.Label(app, image=bg)
-# label1.place(x=0, y=0)
+# Show image using label
+label1 = tk.Label(app, image=bg)
+label1.place(x=0, y=0)
 
 # # TODO MODIFIED BY TAYLOR
 

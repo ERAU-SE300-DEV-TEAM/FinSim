@@ -1,6 +1,7 @@
 # Import module
 from tkinter import *
 
+
 # Create object
 root = Tk()
 
