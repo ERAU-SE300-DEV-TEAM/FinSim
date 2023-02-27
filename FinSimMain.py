@@ -9,4 +9,4 @@ from FinSimController import *
 # Function Calls
 menu()
 getPlayerMoney()
-
+initializeGame()
