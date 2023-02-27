@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from FinSimController import *
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -45,7 +47,7 @@ class StartPage(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="New Game", bg="Light blue", font='Helvetica 18 bold',
-                           command=lambda: controller.show_frame(PageOne))
+                           command=lambda: [controller.show_frame(PageOne), menu()])
         button.pack()
 
         button2 = tk.Button(self, text="Continue", bg="Light blue", font='Helvetica 18 bold')

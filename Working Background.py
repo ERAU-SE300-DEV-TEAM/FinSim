@@ -1,5 +1,7 @@
 # Import module
 from tkinter import *
+from tkinter import ttk
+from FinSimController import *
 
 # Create object
 root = Tk()
@@ -31,7 +33,7 @@ def button1Function() :
     print('Submit button is clicked.')
 
 # Add buttons
-button1 = Button(text="New Simulation", bg="Light blue", font='Helvetica 18 bold')
+button1 = ttk.Button(command = menu() , text="New Simulation", bg="Light blue", font='Helvetica 18 bold')
 button1.place(relx=0.45, rely=0.5)
 #button1.place(x=590, y=1300)
 #button1.pack(pady=30)
