@@ -1,8 +1,9 @@
+import tkinter as tk
+
 import Menu
 from Menu import *
-import tkinter as tk
-from Simulator import *
 from OtherPage import *
+from Simulator import *
 
 
 class MainSim(tk.Frame):
@@ -15,11 +16,11 @@ class MainSim(tk.Frame):
         label = tk.Label(self, text="Simulator")
         label.place(x=0, y=0, width=592, height=44)
 
-        button1 = tk.Button(self, text="Menu",
-                            command=lambda: controller.show_frame(Menu))
+        button1 = tk.Button(
+            self, text="Menu", command=lambda: controller.show_frame(Menu)
+        )
         # button2 = tk.Button(self, text="Go to Page two",
         #                   command=lambda: controller.show_frame(PageTwo))
-        button3 = tk.Button(self, text="Exit",
-                            command=self.quit)
+        button3 = tk.Button(self, text="Exit", command=self.quit)
         button1.place(x=100, y=406, width=200, height=44)
         button3.place(x=300, y=406, width=200, height=44)

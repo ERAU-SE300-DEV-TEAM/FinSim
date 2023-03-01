@@ -1,11 +1,11 @@
+import tkinter as tk
+
 from MainSim import *
 from MainSim import MainSim
 from Menu import *
-import tkinter as tk
-
+from OtherPage import *
 from OtherPage import OtherPage
 from Simulator import *
-from OtherPage import *
 
 TITLE_FONT = ("Helvetica", 18, "bold")
 
@@ -30,4 +30,3 @@ class Simulator(tk.Tk):
     def show_frame(self, c):
         frame = self.frames[c]
         frame.tkraise()
-
