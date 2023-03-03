@@ -1,13 +1,13 @@
 import tkinter as tk
 
-import Menu
-from MainSim import MainSim
-from Menu import *
-from OtherPage import *
-from Simulator import *
+import fileStructureAttempt.Menu as Menu
+from fileStructureAttempt.MainSim import MainSim
+from fileStructureAttempt.Menu import *
+from fileStructureAttempt.OtherPage import *
+from fileStructureAttempt.Simulator import *
 
 
-class Menu(tk.Frame):
+class fileStructureAttempt.Menu(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         logo = tk.PhotoImage(file="lottomoney.png")

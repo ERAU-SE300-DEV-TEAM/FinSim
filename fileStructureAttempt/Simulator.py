@@ -1,11 +1,11 @@
 import tkinter as tk
 
-from MainSim import *
-from MainSim import MainSim
-from Menu import *
-from OtherPage import *
-from OtherPage import OtherPage
-from Simulator import *
+from fileStructureAttempt.MainSim import *
+from fileStructureAttempt.MainSim import MainSim
+from fileStructureAttempt.Menu import *
+from fileStructureAttempt.OtherPage import *
+from fileStructureAttempt.OtherPage import OtherPage
+from fileStructureAttempt.Simulator import *
 
 TITLE_FONT = ("Helvetica", 18, "bold")
 
@@ -20,12 +20,12 @@ class Simulator(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (Menu, MainSim, OtherPage):
+        for F in (fileStructureAttempt.Menu, MainSim, OtherPage):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame(Menu)
+        self.show_frame(fileStructureAttempt.Menu)
 
     def show_frame(self, c):
         frame = self.frames[c]

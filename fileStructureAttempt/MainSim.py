@@ -1,9 +1,9 @@
 import tkinter as tk
 
-import Menu
-from Menu import *
-from OtherPage import *
-from Simulator import *
+import fileStructureAttempt.Menu as Menu
+from fileStructureAttempt.Menu import *
+from fileStructureAttempt.OtherPage import *
+from fileStructureAttempt.Simulator import *
 
 
 class MainSim(tk.Frame):

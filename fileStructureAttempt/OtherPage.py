@@ -1,9 +1,9 @@
 import tkinter as tk
 
-import Menu
-from Menu import *
-from OtherPage import *
-from Simulator import *
+import fileStructureAttempt.Menu as Menu
+from fileStructureAttempt.Menu import *
+from fileStructureAttempt.OtherPage import *
+from fileStructureAttempt.Simulator import *
 
 
 class OtherPage(tk.Frame):
@@ -17,7 +17,7 @@ class OtherPage(tk.Frame):
         label.place(x=0, y=0, width=592, height=44)
 
         button1 = tk.Button(
-            self, text="Menu", command=lambda: controller.show_frame(Menu)
+            self, text="Menu", command=lambda: controller.show_frame(fileStructureAttempt.Menu)
         )
         # button2 = tk.Button(self, text="Go to Page two",
         #                   command=lambda: controller.show_frame(PageTwo))
