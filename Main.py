@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox, ttk
 
+# check out the box type space
+# notice how that code works
+# try to make new classes/pages ie the main page
+# try to implement that box type code and buttons on main page to gain new info/variables
+
 
 class FimSin(tk.Tk):
     def __init__(self):
