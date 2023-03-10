@@ -113,7 +113,7 @@ class mainApp(tk.Frame):
         # style_black = ttk.Style()
         # style_black.configure("Custom.TButton.Black", background="black", font='Helvetica 18 bold')
 
-        # display a text block
+        # display a text block.
         label1 = tk.Label(self, text="Your living expenses are: ")
         label1.pack(pady=100)
 
