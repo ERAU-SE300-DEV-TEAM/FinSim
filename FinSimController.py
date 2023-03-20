@@ -5,6 +5,7 @@ from random import randrange
 #Define Player "Struct"
 @dataclass
 class Player:
+    name: 'tempName'
     turnCount: 0
     income : 0.0
     currentMoney: 0.0
@@ -16,7 +17,7 @@ class Player:
 
 
 # Class/ Attribute Instantiations/ Declarations
-player = Player(0, 0, 0, 0, 1, True, False, False)
+player = Player('tempName',0, 0, 0, 0, 1, True, False, False)
 
 # Function Defintions
 
@@ -81,6 +82,8 @@ def randomMonthlyDecisions():
 def initializeGame():
     player.turnCount = 0
     for player.turnCount in range (0,60):
-        basicMonthlyDecisionsMenu()
-        randomMonthlyDecisions()
         player.turnCount += 1
+        print(player.turnCount)
+
+def setPlayerName(nameInput):
+    player.name = nameInput

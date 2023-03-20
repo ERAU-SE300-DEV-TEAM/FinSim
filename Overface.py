@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import FinSimController as FinSim
 #
 
 class SimFin(tk.Tk):
@@ -12,11 +13,11 @@ class SimFin(tk.Tk):
         self.background_label = tk.Label(self, image=self.background_image)
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.container = tk.Frame(self, width=1200, height=600, bg="white")
+        self.container = tk.Frame(self, width=300, height=300, bg="white")
         self.container.place(relx=0.5, rely=0.5, anchor="center")
 
         self.frames = {}
-        for F in (MainPage, NewGamePage):
+        for F in (MainPage, NewGamePage, mainApp):
             page_name = F.__name__
             frame = F(parent=self.container, controller=self)
             self.frames[page_name] = frame
@@ -43,7 +44,7 @@ class MainPage(tk.Frame):
                                                   {"side": "left", "sticky": ''})])
 
         style_blue = ttk.Style()
-        style_blue.configure("Custom.TButton.Blue", background="light blue", font='Helvetica 18 bold')
+        style_blue.configure("Custom.TButton.Blue", background="#ADD8E6", font='Helvetica 18 bold')
 
         layout_blue = ttk.Style()
         layout_blue.layout("Custom.TButton.Blue", [("Button.padding", {"side": "left", "sticky": ''}),
@@ -58,19 +59,19 @@ class MainPage(tk.Frame):
                                                      ("Button.label",
                                                       {"side": "left", "sticky": ''})])
 
-        new_game_button = ttk.Button(self, text="New Game", width=80, style="Custom.TButton.Blue",
+        new_game_button = ttk.Button(self, text="New Game", width=20, style="Custom.TButton.Blue",
                                      command=lambda: controller.show_frame("NewGamePage"))
         new_game_button.configure(style="Custom.TButton.Blue")
         new_game_button.pack(pady=10)
 
-        continue_button = ttk.Button(self, text="Continue", style="Custom.TButton.Blue")
+        continue_button = ttk.Button(self, text="Continue", width=20, style="Custom.TButton.Blue")
         continue_button.pack(pady=10)
 
-        leaderboard_button = ttk.Button(self, text="Leaderboards", style="Custom.TButton.Red")
+        leaderboard_button = ttk.Button(self, text="Leaderboards", width=20, style="Custom.TButton.Red")
         leaderboard_button.configure(style="Custom.TButton.Red")
         leaderboard_button.pack(pady=10)
 
-        exit_button = ttk.Button(self, text="Exit", style="Custom.TButton.Black",
+        exit_button = ttk.Button(self, text="Exit", width=20, style="Custom.TButton.Black",
                                  command=self.exit_game)
         exit_button.configure(style="Custom.TButton.Black")
         exit_button.pack(pady=10)
@@ -102,22 +103,58 @@ class NewGamePage(tk.Frame):
         with open("names.txt", "a") as file:
             file.write(name + "\n")
         messagebox.showinfo("Success", f"Name {name} saved!")
-        self.controller.show_frame("MainPage")
+        #Back End Function Calls
+        FinSim.setPlayerName(name)
+        FinSim.initializeGame()
+        self.controller.show_frame("mainApp")
+
+
+
 
 class mainApp(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-
         self.controller = controller
 
-        # Set up the label and button for page one
-        label = tk.Label(self, text="This is Page One")
-        label.pack(pady=10,padx=10)
+        # style_black = ttk.Style()
+        # style_black.configure("Custom.TButton.Black", background="black", font='Helvetica 18 bold')
 
-        button = ttk.Button(self, text="Go to Start Page",
-                            command=lambda: controller.show_frame("StartPage"))
-        button.pack()
+        # display a text block
+        label1 = tk.Label(self, text="Your living expenses are: ")
+        label1.pack(pady=100)
 
+        label2 = tk.Label(self, text="Enter in how much you want to spend:")
+        label2.pack(pady=10)
+
+        self.name_entry = tk.Entry(self)
+        self.name_entry.pack(pady=10)
+
+        submit_button = ttk.Button(self, text="Submit")
+        submit_button.pack(pady=10)
+
+        style_black = ttk.Style()
+        style_black.configure("Custom.TButton.Black", background="black", font='Helvetica 18 bold', foreground="white")
+
+        layout_black = ttk.Style()
+        layout_black.layout("Custom.TButton.Black", [("Button.padding", {"side": "left", "sticky": ''}),
+                                                     ("Button.label",
+                                                      {"side": "left", "sticky": ''})])
+
+        exit_button = ttk.Button(self, text="Save and Exit", width=20, style="Custom.TButton.Black",
+                                 command=self.exit_game)
+        exit_button.configure(style="Custom.TButton.Black")
+        exit_button.pack(pady=100)
+
+    def spend_amount(self):
+        spend = self.name_entry.get()
+        with open("spend.txt", "a") as file:
+            file.write(spend + "\n")
+        messagebox.showinfo("You paid your bills!", f"Name {spend} saved!")
+        self.controller.show_frame("mainApp")
+
+    def exit_game(self):
+        if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
+            self.controller.destroy()
 
 app = SimFin()
 app.mainloop()
