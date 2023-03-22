@@ -245,3 +245,5 @@ class MainApp2(tk.Frame):
 
 app = SimFin()
 app.mainloop()
+
+# hi
