@@ -1,0 +1,59 @@
+Index: This File Current.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import tkinter as tk\r\nfrom tkinter import ttk\r\nfrom tkinter import messagebox\r\n#\r\n\r\nclass SimFin(tk.Tk):\r\n    def __init__(self):\r\n        tk.Tk.__init__(self)\r\n        self.geometry(\"1960x1080\")\r\n        self.title(\"Sim Fin\")\r\n        self.background_image = tk.PhotoImage(file=\"CBGRBaked03.png\")\r\n        self.background_label = tk.Label(self, image=self.background_image)\r\n        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)\r\n\r\n        self.container = tk.Frame(self, width=1200, height=600, bg=\"white\")\r\n        self.container.place(relx=0.5, rely=0.5, anchor=\"center\")\r\n\r\n        self.frames = {}\r\n        for F in (MainPage, NewGamePage):\r\n            page_name = F.__name__\r\n            frame = F(parent=self.container, controller=self)\r\n            self.frames[page_name] = frame\r\n            frame.place(x=0, y=0, relwidth=1, relheight=1)\r\n\r\n        self.show_frame(\"MainPage\")\r\n\r\n    def show_frame(self, page_name):\r\n        frame = self.frames[page_name]\r\n        frame.tkraise()\r\n\r\n\r\nclass MainPage(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        self.controller = controller\r\n\r\n        style_red = ttk.Style()\r\n        style_red.configure(\"Custom.TButton.Red\", background=\"red\", font='Helvetica 18 bold')\r\n\r\n        layout_red = ttk.Style()\r\n        layout_red.layout(\"Custom.TButton.Red\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                 (\"Button.label\",\r\n                                                  {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        style_blue = ttk.Style()\r\n        style_blue.configure(\"Custom.TButton.Blue\", background=\"light blue\", font='Helvetica 18 bold')\r\n\r\n        layout_blue = ttk.Style()\r\n        layout_blue.layout(\"Custom.TButton.Blue\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                   (\"Button.label\",\r\n                                                    {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        style_black = ttk.Style()\r\n        style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold', foreground=\"white\")\r\n\r\n        layout_black = ttk.Style()\r\n        layout_black.layout(\"Custom.TButton.Black\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                     (\"Button.label\",\r\n                                                      {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        new_game_button = ttk.Button(self, text=\"New Game\", width=80, style=\"Custom.TButton.Blue\",\r\n                                     command=lambda: controller.show_frame(\"NewGamePage\"))\r\n        new_game_button.configure(style=\"Custom.TButton.Blue\")\r\n        new_game_button.pack(pady=10)\r\n\r\n        continue_button = ttk.Button(self, text=\"Continue\", style=\"Custom.TButton.Blue\")\r\n        continue_button.pack(pady=10)\r\n\r\n        leaderboard_button = ttk.Button(self, text=\"Leaderboards\", style=\"Custom.TButton.Red\")\r\n        leaderboard_button.configure(style=\"Custom.TButton.Red\")\r\n        leaderboard_button.pack(pady=10)\r\n\r\n        exit_button = ttk.Button(self, text=\"Exit\", style=\"Custom.TButton.Black\",\r\n                                 command=self.exit_game)\r\n        exit_button.configure(style=\"Custom.TButton.Black\")\r\n        exit_button.pack(pady=10)\r\n\r\n    def exit_game(self):\r\n        if messagebox.askokcancel(\"Quit\", \"Are you sure you want to quit?\"):\r\n            self.controller.destroy()\r\n\r\n\r\nclass NewGamePage(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        self.controller = controller\r\n\r\n        #style_black = ttk.Style()\r\n        #style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold')\r\n\r\n        label = tk.Label(self, text=\"Enter your name:\")\r\n        label.pack(pady=10)\r\n\r\n        self.name_entry = tk.Entry(self)\r\n        self.name_entry.pack(pady=10)\r\n\r\n        submit_button = ttk.Button(self, text=\"Submit\", command=self.save_name)\r\n        submit_button.pack(pady=10)\r\n\r\n    def save_name(self):\r\n        name = self.name_entry.get()\r\n        with open(\"names.txt\", \"a\") as file:\r\n            file.write(name + \"\\n\")\r\n        messagebox.showinfo(\"Success\", f\"Name {name} saved!\")\r\n        self.controller.show_frame(\"MainPage\")\r\n\r\nclass mainApp(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n\r\n        self.controller = controller\r\n\r\n        # Set up the label and button for page one\r\n        label = tk.Label(self, text=\"This is Page One\")\r\n        label.pack(pady=10,padx=10)\r\n\r\n        button = ttk.Button(self, text=\"Go to Start Page\",\r\n                            command=lambda: controller.show_frame(\"StartPage\"))\r\n        button.pack()\r\n\r\n\r\napp = SimFin()\r\napp.mainloop()
+===================================================================
+diff --git a/This File Current.py b/This File Current.py
+--- a/This File Current.py	
++++ b/This File Current.py	
+@@ -12,7 +12,7 @@
+         self.background_label = tk.Label(self, image=self.background_image)
+         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+ 
+-        self.container = tk.Frame(self, width=1200, height=600, bg="white")
++        self.container = tk.Frame(self, width=300, height=300, bg="white")
+         self.container.place(relx=0.5, rely=0.5, anchor="center")
+ 
+         self.frames = {}
+@@ -43,7 +43,7 @@
+                                                   {"side": "left", "sticky": ''})])
+ 
+         style_blue = ttk.Style()
+-        style_blue.configure("Custom.TButton.Blue", background="light blue", font='Helvetica 18 bold')
++        style_blue.configure("Custom.TButton.Blue", background="#ADD8E6", font='Helvetica 18 bold')
+ 
+         layout_blue = ttk.Style()
+         layout_blue.layout("Custom.TButton.Blue", [("Button.padding", {"side": "left", "sticky": ''}),
+@@ -58,19 +58,19 @@
+                                                      ("Button.label",
+                                                       {"side": "left", "sticky": ''})])
+ 
+-        new_game_button = ttk.Button(self, text="New Game", width=80, style="Custom.TButton.Blue",
++        new_game_button = ttk.Button(self, text="New Game", width=20, style="Custom.TButton.Blue",
+                                      command=lambda: controller.show_frame("NewGamePage"))
+         new_game_button.configure(style="Custom.TButton.Blue")
+         new_game_button.pack(pady=10)
+ 
+-        continue_button = ttk.Button(self, text="Continue", style="Custom.TButton.Blue")
++        continue_button = ttk.Button(self, text="Continue", width=20, style="Custom.TButton.Blue")
+         continue_button.pack(pady=10)
+ 
+-        leaderboard_button = ttk.Button(self, text="Leaderboards", style="Custom.TButton.Red")
++        leaderboard_button = ttk.Button(self, text="Leaderboards", width=20, style="Custom.TButton.Red")
+         leaderboard_button.configure(style="Custom.TButton.Red")
+         leaderboard_button.pack(pady=10)
+ 
+-        exit_button = ttk.Button(self, text="Exit", style="Custom.TButton.Black",
++        exit_button = ttk.Button(self, text="Exit", width=20, style="Custom.TButton.Black",
+                                  command=self.exit_game)
+         exit_button.configure(style="Custom.TButton.Black")
+         exit_button.pack(pady=10)
+@@ -102,7 +102,7 @@
+         with open("names.txt", "a") as file:
+             file.write(name + "\n")
+         messagebox.showinfo("Success", f"Name {name} saved!")
+-        self.controller.show_frame("MainPage")
++        self.controller.show_frame("mainApp")
+ 
+ class mainApp(tk.Frame):
+     def __init__(self, parent, controller):

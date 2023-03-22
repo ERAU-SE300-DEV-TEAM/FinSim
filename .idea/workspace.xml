@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4928f652-ebea-4fd6-b81e-4ca10385c56c" name="Changes" comment="updating">
+    <list default="true" id="4928f652-ebea-4fd6-b81e-4ca10385c56c" name="Changes" comment="End of Sprint 4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Working Background.py" beforeDir="false" afterPath="$PROJECT_DIR$/Working Background.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +56,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kino4\OneDrive\Documents\GitHub\FinSim" />
       <recent name="C:\Users\thoma\OneDrive\Documents\GitHub\FinSim" />
     </key>
   </component>
@@ -111,11 +111,19 @@
       <option name="project" value="LOCAL" />
       <updated>1676666511569</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="End of Sprint 4">
+      <created>1679282620006</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679282620006</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updating" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating" />
+    <MESSAGE value="End of Sprint 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="End of Sprint 4" />
   </component>
 </project>
