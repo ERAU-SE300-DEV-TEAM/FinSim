@@ -12,11 +12,15 @@ class SimFin(tk.Tk):
         self.background_label = tk.Label(self, image=self.background_image)
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.container = tk.Frame(self, width=300, height=650, bg="white")
+        self.frame_sizes = {"MainPage": (300, 200), "NewGamePage": (500, 700), "MainApp": (800, 800)}
+
+        self.container = tk.Frame(self, width=self.frame_sizes["MainPage"][0], height=self.frame_sizes["MainPage"][1],
+                                  bg="white")
+        # self.container = tk.Frame(self, width=300, height=650, bg="white")
         self.container.place(relx=0.5, rely=0.5, anchor="center")
 
         self.frames = {}
-        for F in (MainPage, NewGamePage, MainApp, MainApp2):
+        for F in (MainPage, NewGamePage, MainApp):
             page_name = F.__name__
             frame = F(parent=self.container, controller=self)
             self.frames[page_name] = frame
@@ -26,6 +30,8 @@ class SimFin(tk.Tk):
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
+        width, height = self.frame_sizes[page_name]
+        self.container.config(width=width, height=height)
         frame.tkraise()
 
 
@@ -61,19 +67,19 @@ class MainPage(tk.Frame):
         new_game_button = ttk.Button(self, text="New Game", width=20, style="Custom.TButton.Blue",
                                      command=lambda: controller.show_frame("NewGamePage"))
         new_game_button.configure(style="Custom.TButton.Blue")
-        new_game_button.pack(pady=50)
+        new_game_button.pack(pady=10)
 
         continue_button = ttk.Button(self, text="Continue", width=20, style="Custom.TButton.Blue")
-        continue_button.pack(pady=50)
+        continue_button.pack(pady=10)
 
         leaderboard_button = ttk.Button(self, text="Leaderboards", width=20, style="Custom.TButton.Red")
         leaderboard_button.configure(style="Custom.TButton.Red")
-        leaderboard_button.pack(pady=50)
+        leaderboard_button.pack(pady=10)
 
         exit_button = ttk.Button(self, text="Exit", width=20, style="Custom.TButton.Black",
                                  command=self.exit_game)
         exit_button.configure(style="Custom.TButton.Black")
-        exit_button.pack(pady=50)
+        exit_button.pack(pady=10)
 
     def exit_game(self):
         if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
@@ -113,30 +119,52 @@ class MainApp(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        # create a notebook widget
+        notebook = ttk.Notebook(self)
+
+        # create first tab
+        tab1 = ttk.Frame(notebook)
+
         # display a text block
-        label4 = tk.Label(self, font='Helvetica 24 bold', text="Month 1")
+        label4 = tk.Label(tab1, font='Helvetica 24 bold', text="Month 1")
         label4.pack(pady=5)
 
-        label0 = tk.Label(self, text="Your total money is: ")
+        label0 = tk.Label(tab1, text="Your total money is: ")
         label0.pack(pady=25)
 
-        label5 = tk.Label(self, font='Helvetica 14 bold', text="$1500")
+        label5 = tk.Label(tab1, font='Helvetica 14 bold', text="$1500")
         label5.pack(pady=25)
 
-        label1 = tk.Label(self, text="Your living expenses are: ")
+        label1 = tk.Label(tab1, text="Your living expenses are: ")
         label1.pack(pady=25)
 
-        label6 = tk.Label(self, font='Helvetica 14 bold', text="$1200")
+        label6 = tk.Label(tab1, font='Helvetica 14 bold', text="$1200")
         label6.pack(pady=25)
 
-        label2 = tk.Label(self, text="Enter in how much you want to spend:")
+        label2 = tk.Label(tab1, text="Enter in how much you want to spend:")
         label2.pack(pady=10)
 
-        self.name_entry = tk.Entry(self)
-        self.name_entry.pack(pady=10)
+        tab1.name_entry = tk.Entry(tab1)
+        tab1.name_entry.pack(pady=10)
 
-        submit_button = ttk.Button(self, text="Submit", command=self.spend_amount)
+        submit_button = ttk.Button(tab1, text="Submit", command=self.spend_amount)
         submit_button.pack(pady=10)
+
+        notebook.add(tab1, text="Main")
+
+        # second tab
+        tab2 = ttk.Frame(notebook)
+
+        label4 = tk.Label(tab2, font='Helvetica 24 bold', text="Month 1")
+        label4.pack(pady=5)
+
+        label0 = tk.Label(tab2, text="Your rent is: ")
+        label0.pack(pady=25)
+
+        notebook.add(tab2, text="Housing")
+
+        # pack the notebook widget
+        notebook.pack(fill='both', expand=True)
 
         style_red = ttk.Style()
         style_red.configure("Custom.TButton.Red2", background="red", font='Helvetica 14 bold', foreground="white")
@@ -147,7 +175,8 @@ class MainApp(tk.Frame):
                                                   {"side": "left", "sticky": ''})])
 
         next_month = ttk.Button(self, text="Next Month", width=20, style="Custom.TButton.Red2",
-                                command=lambda: controller.show_frame("MainApp2"))
+                                # command=lambda: controller.show_frame("MainApp2")
+                                )
         next_month.configure(style="Custom.TButton.Red2")
         next_month.pack(pady=20)
 
@@ -168,80 +197,13 @@ class MainApp(tk.Frame):
         spend = self.name_entry.get()
         with open("spend.txt", "a") as file:
             file.write(spend + "\n")
-        messagebox.showinfo("You paid your bills!", f"Kino paid {spend}!")
-        self.controller.show_frame("mainApp2")
+        messagebox.showinfo("You paid your bills!", f"Name paid {spend}!")
+        self.controller.show_frame("mainApp")
 
     def exit_game(self):
         if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
             self.controller.destroy()
 
-
-class MainApp2(tk.Frame):
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-
-        # display a text block
-        label4 = tk.Label(self, font='Helvetica 24 bold', text="Month 2")
-        label4.pack(pady=5)
-
-        label0 = tk.Label(self, text="Your total money is: ")
-        label0.pack(pady=25)
-
-        label5 = tk.Label(self, font='Helvetica 14 bold', text="$1800")
-        label5.pack(pady=25)
-
-        label1 = tk.Label(self, text="Your living expenses are: ")
-        label1.pack(pady=25)
-
-        label6 = tk.Label(self, font='Helvetica 14 bold', text="$1200")
-        label6.pack(pady=25)
-
-        label2 = tk.Label(self, text="Enter in how much you want to spend:")
-        label2.pack(pady=10)
-
-        self.name_entry = tk.Entry(self)
-        self.name_entry.pack(pady=10)
-
-        submit_button = ttk.Button(self, text="Submit", command=self.spend_amount)
-        submit_button.pack(pady=10)
-
-        style_red2 = ttk.Style()
-        style_red2.configure("Custom.TButton.Red2", background="red", font='Helvetica 14 bold', foreground="white")
-
-        layout_red2 = ttk.Style()
-        layout_red2.layout("Custom.TButton.Red2", [("Button.padding", {"side": "left", "sticky": ''}),
-                                                 ("Button.label",
-                                                  {"side": "left", "sticky": ''})])
-
-        next_month2 = ttk.Button(self, text="Next Month", width=20, style="Custom.TButton.Red2",
-                                command=lambda: controller.show_frame("MainApp"))
-        next_month2.configure(style="Custom.TButton.Red2")
-        next_month2.pack(pady=20)
-
-        style_black2 = ttk.Style()
-        style_black2.configure("Custom.TButton.Black2", background="black", font='Helvetica 14 bold', foreground="white")
-
-        layout_black2 = ttk.Style()
-        layout_black2.layout("Custom.TButton.Black2", [("Button.padding", {"side": "left", "sticky": ''}),
-                                                     ("Button.label",
-                                                      {"side": "left", "sticky": ''})])
-
-        exit_button = ttk.Button(self, text="Save and Exit", width=20, style="Custom.TButton.Black2",
-                                 command=self.exit_game)
-        exit_button.configure(style="Custom.TButton.Black2")
-        exit_button.pack(pady=20)
-
-    def spend_amount(self):
-        spend = self.name_entry.get()
-        with open("spend.txt", "a") as file:
-            file.write(spend + "\n")
-        messagebox.showinfo("You paid your bills!", f"Kino paid {spend}!")
-        self.controller.show_frame("mainApp2")
-
-    def exit_game(self):
-        if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
-            self.controller.destroy()
 
 app = SimFin()
 app.mainloop()
