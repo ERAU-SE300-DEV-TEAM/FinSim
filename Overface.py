@@ -1,9 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
+from configparser import ConfigParser
 from tkinter import messagebox
+
+name = "t"
 #
 
 class SimFin(tk.Tk):
+
     def __init__(self):
         tk.Tk.__init__(self)
         self.geometry("1960x1080")
@@ -36,6 +40,7 @@ class SimFin(tk.Tk):
 
 
 class MainPage(tk.Frame):
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -107,9 +112,8 @@ class NewGamePage(tk.Frame):
         submit_button.pack(pady=10)
 
     def save_name(self):
+        global name
         name = self.name_entry.get()
-        with open("names.txt", "a") as file:
-            file.write(name + "\n")
         messagebox.showinfo("Success", f"Name {name} saved!")
         # self.controller.show_frame("MainApp")
 
@@ -171,8 +175,8 @@ class MainApp(tk.Frame):
 
         layout_red2 = ttk.Style()
         layout_red2.layout("Custom.TButton.Red2", [("Button.padding", {"side": "left", "sticky": ''}),
-                                                 ("Button.label",
-                                                  {"side": "left", "sticky": ''})])
+                                                   ("Button.label",
+                                                    {"side": "left", "sticky": ''})])
 
         next_month = ttk.Button(self, text="Next Month", width=20, style="Custom.TButton.Red2",
                                 # command=lambda: controller.show_frame("MainApp2")
@@ -181,12 +185,13 @@ class MainApp(tk.Frame):
         next_month.pack(pady=20)
 
         style_black2 = ttk.Style()
-        style_black2.configure("Custom.TButton.Black2", background="black", font='Helvetica 14 bold', foreground="white")
+        style_black2.configure("Custom.TButton.Black2", background="black", font='Helvetica 14 bold',
+                               foreground="white")
 
         layout_black2 = ttk.Style()
         layout_black2.layout("Custom.TButton.Black2", [("Button.padding", {"side": "left", "sticky": ''}),
-                                                     ("Button.label",
-                                                      {"side": "left", "sticky": ''})])
+                                                       ("Button.label",
+                                                        {"side": "left", "sticky": ''})])
 
         exit_button = ttk.Button(self, text="Save and Exit", width=20, style="Custom.TButton.Black2",
                                  command=self.exit_game)
@@ -201,9 +206,21 @@ class MainApp(tk.Frame):
         self.controller.show_frame("mainApp")
 
     def exit_game(self):
+        savefile()
         if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
             self.controller.destroy()
 
 
+def savefile():
+    config = ConfigParser()
+    config["Player Info"] = {
+        "name": name,
+        "currentMoney": 0.0,
+        "currentMonth": 0}
+    with open("testfile.toml", "w") as f:
+        config.write(f)
+
+
+savefile()
 app = SimFin()
 app.mainloop()
