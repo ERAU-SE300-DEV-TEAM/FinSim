@@ -218,6 +218,7 @@ class MainApp(tk.Frame):
         label4 = tk.Label(tab1, font="Helvetica 24 bold", text="Month ")
         label4.pack(pady=5)
 
+        # Figure this out!!!!!!!!!!!!!!!
         global name
         label10 = tk.Label(tab1, text=name)
         label10.pack(pady=5)
@@ -349,6 +350,6 @@ def openfile():
     f.close()
 
 
-savefile()
+# savefile()
 app = SimFin()
 app.mainloop()
