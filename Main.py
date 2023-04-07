@@ -2,8 +2,20 @@ import tkinter as tk
 from configparser import ConfigParser
 from tkinter import messagebox, ttk
 
-name = "t"
-#
+# problem with toml and openfile
+
+
+# global name
+name = "void"
+money = 0
+month = 0
+tempName = "other"
+
+
+def save_get_name():
+    global name
+    name = tempName
+    print(name)
 
 
 class SimFin(tk.Tk):
@@ -39,11 +51,21 @@ class SimFin(tk.Tk):
 
         self.show_frame("MainPage")
 
+        # Define name as a global variable
+        # global name
+        # name = ""
+
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         width, height = self.frame_sizes[page_name]
         self.container.config(width=width, height=height)
         frame.tkraise()
+
+
+class Player:
+    name = "voidC"
+    month = 0
+    currentMoney = 0.0
 
 
 class MainPage(tk.Frame):
@@ -107,7 +129,11 @@ class MainPage(tk.Frame):
         new_game_button.pack(pady=10)
 
         continue_button = ttk.Button(
-            self, text="Continue", width=20, style="Custom.TButton.Blue"
+            self,
+            text="Continue",
+            width=20,
+            style="Custom.TButton.Blue",
+            command=self.continue_game,
         )
         continue_button.pack(pady=10)
 
@@ -126,6 +152,10 @@ class MainPage(tk.Frame):
         )
         exit_button.configure(style="Custom.TButton.Black")
         exit_button.pack(pady=10)
+
+    def continue_game(self):
+        openfile()
+        self.controller.show_frame("MainApp")
 
     def exit_game(self):
         if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
@@ -159,14 +189,22 @@ class NewGamePage(tk.Frame):
     def save_name(self):
         global name
         name = self.name_entry.get()
+        global tempName
+        tempName = name
+        save_get_name()
+        # with open("names.txt", "a") as file:
+        # file.write(name + "\n")
         messagebox.showinfo("Success", f"Name {name} saved!")
         # self.controller.show_frame("MainApp")
+        label10 = tk.Label(self, text="Your name is \n" + name)
+        label10.pack(pady=20)
 
 
 class MainApp(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        # self.spend_entry = controller
 
         # create a notebook widget
         notebook = ttk.Notebook(self)
@@ -174,9 +212,15 @@ class MainApp(tk.Frame):
         # create first tab
         tab1 = ttk.Frame(notebook)
 
+        global month
+
         # display a text block
-        label4 = tk.Label(tab1, font="Helvetica 24 bold", text="Month 1")
+        label4 = tk.Label(tab1, font="Helvetica 24 bold", text="Month ")
         label4.pack(pady=5)
+
+        global name
+        label10 = tk.Label(tab1, text=name)
+        label10.pack(pady=5)
 
         label0 = tk.Label(tab1, text="Your total money is: ")
         label0.pack(pady=25)
@@ -193,8 +237,8 @@ class MainApp(tk.Frame):
         label2 = tk.Label(tab1, text="Enter in how much you want to spend:")
         label2.pack(pady=10)
 
-        tab1.name_entry = tk.Entry(tab1)
-        tab1.name_entry.pack(pady=10)
+        tab1.spend_entry = tk.Entry(tab1)
+        tab1.spend_entry.pack(pady=10)
 
         submit_button = ttk.Button(tab1, text="Submit", command=self.spend_amount)
         submit_button.pack(pady=10)
@@ -270,9 +314,8 @@ class MainApp(tk.Frame):
         exit_button.pack(pady=20)
 
     def spend_amount(self):
-        spend = self.name_entry.get()
-        with open("spend.txt", "a") as file:
-            file.write(spend + "\n")
+        global month
+        spend = self.spend_entry.get()
         messagebox.showinfo("You paid your bills!", f"Name paid {spend}!")
         self.controller.show_frame("mainApp")
 
@@ -287,6 +330,23 @@ def savefile():
     config["Player Info"] = {"name": name, "currentMoney": 0.0, "currentMonth": 0}
     with open("testfile.toml", "w") as f:
         config.write(f)
+
+
+def openfile():
+    import toml
+
+    # t = open("testfile.toml")
+    with open("testfile.toml", "r") as f:
+        data = toml.load(f)
+
+        global name
+        global money
+        global month
+
+        name = data["name"]
+        money = data["currentMoney"]
+        month = data["currentMonth"]
+    f.close()
 
 
 savefile()
