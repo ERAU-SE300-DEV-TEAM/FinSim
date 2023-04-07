@@ -2,8 +2,8 @@ import tkinter as tk
 from configparser import ConfigParser
 from tkinter import messagebox, ttk
 
-# TODO: problem with toml(line 336) and openfile(line 156)
-# TODO: global name(Lines 221-224)
+# TODO: problem with toml(line 335) and openfile(line 155)
+# TODO: global name(Lines 220-223)
 
 # global name
 name = "void"
@@ -213,7 +213,6 @@ class MainApp(tk.Frame):
         tab1 = ttk.Frame(notebook)
 
         global month
-
         # display a text block
         label4 = tk.Label(tab1, font="Helvetica 24 bold", text="Month ")
         label4.pack(pady=5)
