@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4928f652-ebea-4fd6-b81e-4ca10385c56c" name="Changes" comment="" />
+    <list default="true" id="4928f652-ebea-4fd6-b81e-4ca10385c56c" name="Changes" comment="End of Sprint 4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,15 +20,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="d54456cc-1e4d-400f-b03c-889131fd1af2" />
         <option name="url" value="https://github.com/ERAU-SE300-DEV-TEAM/FinSim.git" />
       </UrlAndAccount>
     </option>
@@ -37,6 +28,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2KprGNXY7K7O9SAsQrsKogHhSKf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -45,11 +39,11 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/thoma/OneDrive/Documents/GitHub/FinSim&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kino4\OneDrive\Documents\GitHub\FinSim" />
       <recent name="C:\Users\thoma\OneDrive\Documents\GitHub\FinSim" />
     </key>
   </component>
@@ -62,6 +56,75 @@
       <option name="presentableId" value="Default" />
       <updated>1674682269678</updated>
     </task>
+    <task id="LOCAL-00001" summary="updating">
+      <created>1676155269868</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676155269868</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updating">
+      <created>1676155457528</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676155457528</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updating">
+      <created>1676156122591</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676156122591</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updating">
+      <created>1676166780753</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676166780753</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updating">
+      <created>1676218934946</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676218934946</updated>
+    </task>
+    <task id="LOCAL-00006" summary="updating">
+      <created>1676666511569</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676666511569</updated>
+    </task>
+    <task id="LOCAL-00007" summary="End of Sprint 4">
+      <created>1679282620006</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679282620006</updated>
+    </task>
+    <task id="LOCAL-00008" summary="End of Sprint 4">
+      <created>1679772842936</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679772842936</updated>
+    </task>
+    <task id="LOCAL-00009" summary="End of Sprint 4">
+      <created>1681502973016</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1681502973016</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updating" />
+    <MESSAGE value="End of Sprint 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="End of Sprint 4" />
   </component>
 </project>

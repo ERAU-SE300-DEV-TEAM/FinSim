@@ -1,0 +1,750 @@
+Index: 03-10-01.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import tkinter as tk\r\nfrom tkinter import ttk\r\nfrom tkinter import messagebox\r\n#\r\n\r\nclass SimFin(tk.Tk):\r\n    def __init__(self):\r\n        tk.Tk.__init__(self)\r\n        self.geometry(\"1960x1080\")\r\n        self.title(\"Sim Fin\")\r\n        self.background_image = tk.PhotoImage(file=\"CBGRBaked03.png\")\r\n        self.background_label = tk.Label(self, image=self.background_image)\r\n        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)\r\n\r\n        self.container = tk.Frame(self, width=300, height=300, bg=\"white\")\r\n        self.container.place(relx=0.5, rely=0.5, anchor=\"center\")\r\n\r\n        self.frames = {}\r\n        for F in (MainPage, NewGamePage):\r\n            page_name = F.__name__\r\n            frame = F(parent=self.container, controller=self)\r\n            self.frames[page_name] = frame\r\n            frame.place(x=0, y=0, relwidth=1, relheight=1)\r\n\r\n        self.show_frame(\"MainPage\")\r\n\r\n    def show_frame(self, page_name):\r\n        frame = self.frames[page_name]\r\n        frame.tkraise()\r\n\r\n\r\nclass MainPage(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        self.controller = controller\r\n\r\n        style_red = ttk.Style()\r\n        style_red.configure(\"Custom.TButton.Red\", background=\"red\", font='Helvetica 18 bold')\r\n\r\n        layout_red = ttk.Style()\r\n        layout_red.layout(\"Custom.TButton.Red\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                 (\"Button.label\",\r\n                                                  {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        style_blue = ttk.Style()\r\n        style_blue.configure(\"Custom.TButton.Blue\", background=\"#ADD8E6\", font='Helvetica 18 bold')\r\n\r\n        layout_blue = ttk.Style()\r\n        layout_blue.layout(\"Custom.TButton.Blue\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                   (\"Button.label\",\r\n                                                    {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        style_black = ttk.Style()\r\n        style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold', foreground=\"white\")\r\n\r\n        layout_black = ttk.Style()\r\n        layout_black.layout(\"Custom.TButton.Black\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                     (\"Button.label\",\r\n                                                      {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        new_game_button = ttk.Button(self, text=\"New Game\", width=20, style=\"Custom.TButton.Blue\",\r\n                                     command=lambda: controller.show_frame(\"NewGamePage\"))\r\n        new_game_button.configure(style=\"Custom.TButton.Blue\")\r\n        new_game_button.pack(pady=10)\r\n\r\n        continue_button = ttk.Button(self, text=\"Continue\", width=20, style=\"Custom.TButton.Blue\")\r\n        continue_button.pack(pady=10)\r\n\r\n        leaderboard_button = ttk.Button(self, text=\"Leaderboards\", width=20, style=\"Custom.TButton.Red\")\r\n        leaderboard_button.configure(style=\"Custom.TButton.Red\")\r\n        leaderboard_button.pack(pady=10)\r\n\r\n        exit_button = ttk.Button(self, text=\"Exit\", width=20, style=\"Custom.TButton.Black\",\r\n                                 command=self.exit_game)\r\n        exit_button.configure(style=\"Custom.TButton.Black\")\r\n        exit_button.pack(pady=10)\r\n\r\n    def exit_game(self):\r\n        if messagebox.askokcancel(\"Quit\", \"Are you sure you want to quit?\"):\r\n            self.controller.destroy()\r\n\r\n\r\nclass NewGamePage(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        self.controller = controller\r\n\r\n        #style_black = ttk.Style()\r\n        #style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold')\r\n\r\n        label = tk.Label(self, text=\"Enter your name:\")\r\n        label.pack(pady=10)\r\n\r\n        self.name_entry = tk.Entry(self)\r\n        self.name_entry.pack(pady=10)\r\n\r\n        submit_button = ttk.Button(self, text=\"Submit\", command=self.save_name)\r\n        submit_button.pack(pady=10)\r\n\r\n    def save_name(self):\r\n        name = self.name_entry.get()\r\n        with open(\"names.txt\", \"a\") as file:\r\n            file.write(name + \"\\n\")\r\n        messagebox.showinfo(\"Success\", f\"Name {name} saved!\")\r\n        self.controller.show_frame(\"mainApp\")\r\n\r\n\r\nclass mainApp(tk.Frame):\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        self.controller = controller\r\n\r\n        # style_black = ttk.Style()\r\n        # style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold')\r\n\r\n        # display a text block\r\n        label1 = tk.Label(self, text=\"Your living expenses are: \")\r\n        label1.pack(pady=100)\r\n\r\n        label2 = tk.Label(self, text=\"Enter in how much you want to spend:\")\r\n        label2.pack(pady=10)\r\n\r\n        self.name_entry = tk.Entry(self)\r\n        self.name_entry.pack(pady=10)\r\n\r\n        submit_button = ttk.Button(self, text=\"Submit\", command=self.save_name)\r\n        submit_button.pack(pady=10)\r\n\r\n        style_black = ttk.Style()\r\n        style_black.configure(\"Custom.TButton.Black\", background=\"black\", font='Helvetica 18 bold', foreground=\"white\")\r\n\r\n        layout_black = ttk.Style()\r\n        layout_black.layout(\"Custom.TButton.Black\", [(\"Button.padding\", {\"side\": \"left\", \"sticky\": ''}),\r\n                                                     (\"Button.label\",\r\n                                                      {\"side\": \"left\", \"sticky\": ''})])\r\n\r\n        exit_button = ttk.Button(self, text=\"Save and Exit\", width=20, style=\"Custom.TButton.Black\",\r\n                                 command=self.exit_game)\r\n        exit_button.configure(style=\"Custom.TButton.Black\")\r\n        exit_button.pack(pady=100)\r\n\r\n    def spend_amount(self):\r\n        spend = self.name_entry.get()\r\n        with open(\"spend.txt\", \"a\") as file:\r\n            file.write(spend + \"\\n\")\r\n        messagebox.showinfo(\"You paid your bills!\", f\"Name {spend} saved!\")\r\n        self.controller.show_frame(\"mainApp\")\r\n\r\n    def exit_game(self):\r\n        if messagebox.askokcancel(\"Quit\", \"Are you sure you want to quit?\"):\r\n            self.controller.destroy()\r\n\r\napp = SimFin()\r\napp.mainloop()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/03-10-01.py b/03-10-01.py
+--- a/03-10-01.py	(revision 5c6dd1258a4b96f35de5157ed57d4ad2ded8970b)
++++ b/03-10-01.py	(date 1679280661908)
+@@ -8,15 +8,15 @@
+         tk.Tk.__init__(self)
+         self.geometry("1960x1080")
+         self.title("Sim Fin")
+-        self.background_image = tk.PhotoImage(file="CBGRBaked03.png")
++        self.background_image = tk.PhotoImage(file="CBGRBaked04.png")
+         self.background_label = tk.Label(self, image=self.background_image)
+         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+ 
+-        self.container = tk.Frame(self, width=300, height=300, bg="white")
++        self.container = tk.Frame(self, width=300, height=450, bg="white")
+         self.container.place(relx=0.5, rely=0.5, anchor="center")
+ 
+         self.frames = {}
+-        for F in (MainPage, NewGamePage):
++        for F in (MainPage, NewGamePage, MainApp):
+             page_name = F.__name__
+             frame = F(parent=self.container, controller=self)
+             self.frames[page_name] = frame
+@@ -85,9 +85,6 @@
+         tk.Frame.__init__(self, parent)
+         self.controller = controller
+ 
+-        #style_black = ttk.Style()
+-        #style_black.configure("Custom.TButton.Black", background="black", font='Helvetica 18 bold')
+-
+         label = tk.Label(self, text="Enter your name:")
+         label.pack(pady=10)
+ 
+@@ -97,25 +94,37 @@
+         submit_button = ttk.Button(self, text="Submit", command=self.save_name)
+         submit_button.pack(pady=10)
+ 
++        submit_button = ttk.Button(self, text="Start", command=lambda: controller.show_frame("MainApp"))
++        submit_button.pack(pady=10)
++
++        submit_button = ttk.Button(self, text="Main Page", command=lambda: controller.show_frame("MainPage"))
++        submit_button.pack(pady=10)
++
+     def save_name(self):
+         name = self.name_entry.get()
+         with open("names.txt", "a") as file:
+             file.write(name + "\n")
+         messagebox.showinfo("Success", f"Name {name} saved!")
+-        self.controller.show_frame("mainApp")
++        # self.controller.show_frame("MainApp")
+ 
+ 
+-class mainApp(tk.Frame):
++class MainApp(tk.Frame):
+     def __init__(self, parent, controller):
+         tk.Frame.__init__(self, parent)
+         self.controller = controller
+ 
+-        # style_black = ttk.Style()
+-        # style_black.configure("Custom.TButton.Black", background="black", font='Helvetica 18 bold')
+-
+         # display a text block
++        label0 = tk.Label(self, text="Your total money is: ")
++        label0.pack(pady=25)
++
++        label5 = tk.Label(self, font='Helvetica 14 bold', text="$1500")
++        label5.pack(pady=25)
++
+         label1 = tk.Label(self, text="Your living expenses are: ")
+-        label1.pack(pady=100)
++        label1.pack(pady=25)
++
++        label6 = tk.Label(self, font='Helvetica 14 bold', text="$1200")
++        label6.pack(pady=25)
+ 
+         label2 = tk.Label(self, text="Enter in how much you want to spend:")
+         label2.pack(pady=10)
+@@ -123,7 +132,7 @@
+         self.name_entry = tk.Entry(self)
+         self.name_entry.pack(pady=10)
+ 
+-        submit_button = ttk.Button(self, text="Submit", command=self.save_name)
++        submit_button = ttk.Button(self, text="Submit", command=self.spend_amount)
+         submit_button.pack(pady=10)
+ 
+         style_black = ttk.Style()
+Index: Working Buttons.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import tkinter as tk\r\n\r\nLARGE_FONT = (\"Verdana\", 12)\r\n\r\n\r\n# Define image\r\n#bg = tk.PhotoImage(file=\"CBGR.png\")\r\n\r\n# Add image file\r\n#bg = PhotoImage( file = \"CBGR.png\")\r\n\r\nclass SeaofBTCapp(tk.Tk):\r\n\r\n    def __init__(self, *args, **kwargs):\r\n        tk.Tk.__init__(self, *args, **kwargs)\r\n        container = tk.Frame(self)\r\n\r\n        container.pack(side=\"top\", fill=\"both\", expand=True)\r\n\r\n        container.grid_rowconfigure(0, weight=1)\r\n        container.grid_columnconfigure(0, weight=1)\r\n\r\n        self.frames = {}\r\n\r\n        for F in (StartPage, PageOne):\r\n            frame = F(container, self)\r\n\r\n            self.frames[F] = frame\r\n\r\n            frame.grid(row=0, column=0, sticky=\"nsew\")\r\n\r\n        self.show_frame(StartPage)\r\n\r\n    def show_frame(self, cont):\r\n        frame = self.frames[cont]\r\n        frame.tkraise()\r\n\r\n\r\nclass StartPage(tk.Frame):\r\n\r\n    def __init__(self, parent, controller):\r\n\r\n        tk.Frame.__init__(self, parent)\r\n        label = tk.Label(self, text=\"Menu\", font=LARGE_FONT)\r\n        label.pack(pady=10, padx=10)\r\n\r\n        button = tk.Button(self, text=\"New Game\", bg=\"Light blue\", font='Helvetica 18 bold',\r\n                           command=lambda: controller.show_frame(PageOne))\r\n        button.pack()\r\n\r\n        button2 = tk.Button(self, text=\"Continue\", bg=\"Light blue\", font='Helvetica 18 bold')\r\n        button2.pack()\r\n\r\n        button2 = tk.Button(self, text=\"Exit\", bg=\"black\", fg='white', font='Helvetica 18 bold')\r\n        button2.pack()\r\n\r\n\r\nclass PageOne(tk.Frame):\r\n\r\n    def __init__(self, parent, controller):\r\n        tk.Frame.__init__(self, parent)\r\n        label = tk.Label(self, text=\"- Fin Sim -\", font='Helvetica 24 bold')\r\n        label.pack(pady=10, padx=10)\r\n\r\n        button1 = tk.Button(self, text=\"Spend money\", bg=\"Light blue\", font='Helvetica 18 bold',)\r\n\r\n        button1.pack()\r\n\r\n        button2 = tk.Button(self, text=\"Return to Main Menu\", bg=\"black\", fg='white', font='Helvetica 18 bold',\r\n                            command=lambda: controller.show_frame(StartPage))\r\n        button2.pack()\r\n\r\n\r\napp = SeaofBTCapp()\r\napp.mainloop()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Working Buttons.py b/Working Buttons.py
+--- a/Working Buttons.py	(revision 5c6dd1258a4b96f35de5157ed57d4ad2ded8970b)
++++ b/Working Buttons.py	(date 1678480741949)
+@@ -9,6 +9,10 @@
+ # Add image file
+ #bg = PhotoImage( file = "CBGR.png")
+ 
++#tk.geometry("1960x1080")
++
++#bg_image = tk.PhotoImage(file="CBGRBaked03.png")
++
+ class SeaofBTCapp(tk.Tk):
+ 
+     def __init__(self, *args, **kwargs):
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"4928f652-ebea-4fd6-b81e-4ca10385c56c\" name=\"Changes\" comment=\"updating\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Working Background.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Working Background.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"98ab38de-39d2-489f-8e78-24c3d5ad416c\" />\r\n        <option name=\"url\" value=\"https://github.com/ERAU-SE300-DEV-TEAM/FinSim.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2KprGNXY7K7O9SAsQrsKogHhSKf\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kino4/OneDrive/Documents/GitHub/FinSim&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\thoma\\OneDrive\\Documents\\GitHub\\FinSim\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"4928f652-ebea-4fd6-b81e-4ca10385c56c\" name=\"Changes\" comment=\"\" />\r\n      <created>1674682269678</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1674682269678</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"updating\">\r\n      <created>1676155269868</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676155269868</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"updating\">\r\n      <created>1676155457528</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676155457528</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"updating\">\r\n      <created>1676156122591</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676156122591</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"updating\">\r\n      <created>1676166780753</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676166780753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"updating\">\r\n      <created>1676218934946</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676218934946</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"updating\">\r\n      <created>1676666511569</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1676666511569</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"updating\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"updating\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5c6dd1258a4b96f35de5157ed57d4ad2ded8970b)
++++ b/.idea/workspace.xml	(date 1679280790550)
+@@ -5,8 +5,17 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="4928f652-ebea-4fd6-b81e-4ca10385c56c" name="Changes" comment="updating">
++      <change afterPath="$PROJECT_DIR$/23-01.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/23-02.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/23-03.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/23-04.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/23-06.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/23-5.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/AiCode01.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Working Background.py" beforeDir="false" afterPath="$PROJECT_DIR$/Working Background.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/03-10-01.py" beforeDir="false" afterPath="$PROJECT_DIR$/03-10-01.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Overface.py" beforeDir="false" afterPath="$PROJECT_DIR$/Overface.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Working Buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/Working Buttons.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -111,7 +120,35 @@
+       <option name="project" value="LOCAL" />
+       <updated>1676666511569</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="updating">
++      <created>1677270640702</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1677270640702</updated>
++    </task>
++    <task id="LOCAL-00008" summary="updating">
++      <created>1677785241585</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1677785241585</updated>
++    </task>
++    <task id="LOCAL-00009" summary="updating">
++      <created>1677875852371</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1677875852371</updated>
++    </task>
++    <task id="LOCAL-00010" summary="updating">
++      <created>1677875878688</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1677875878688</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="VcsManagerConfiguration">
+Index: AiCode01.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/AiCode01.py b/AiCode01.py
+new file mode 100644
+--- /dev/null	(date 1678480741842)
++++ b/AiCode01.py	(date 1678480741842)
+@@ -0,0 +1,29 @@
++import tkinter as tk
++
++root = tk.Tk()
++root.geometry("1960x1080")
++root.title("My Desktop App")
++
++bg_image = tk.PhotoImage(file="CBGRBaked03.png")
++bg_label = tk.Label(root, image=bg_image)
++bg_label.place(x=0, y=0, relwidth=1, relheight=1)
++
++#frame1 = tk.Frame(root, bg='white')
++#frame1.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.4)
++
++#frame2 = tk.Frame(root, bg='white')
++#frame2.place(relx=0.1, rely=0.5, relwidth=0.8, relheight=0.4)
++
++button1 = tk.Button(text="Button 1", fg='black', bg='white')
++button1.pack(side="left", padx=10, pady=10)
++
++button2 = tk.Button(text="Button 2", fg='black', bg='white')
++button2.pack(side="left", padx=10, pady=10)
++
++button3 = tk.Button(text="Button 3", fg='black', bg='white')
++button3.pack(side="left", padx=10, pady=10)
++
++button4 = tk.Button(text="Button 4", fg='black', bg='white')
++button4.pack(side="left", padx=10, pady=10)
++
++root.mainloop()
+Index: 23-01.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-01.py b/23-01.py
+new file mode 100644
+--- /dev/null	(date 1678480741882)
++++ b/23-01.py	(date 1678480741882)
+@@ -0,0 +1,35 @@
++import tkinter as tk
++
++# Top level window
++frame = tk.Tk()
++frame.title("Sim Fin")
++frame.geometry('1960x1080')
++
++bg = tk.PhotoImage(file="CBGRBaked03.png")
++
++# Function for getting Input
++# from textbox and printing it
++# at label widget
++
++def printInput():
++    inp = inputtxt.get(1.0, "end-1c")
++    lbl.config(text="Entered: " + inp)
++
++
++# TextBox Creation
++inputtxt = tk.Text(frame,
++                   height=5,
++                   width=20)
++
++inputtxt.pack()
++
++# Button Creation
++printButton = tk.Button(frame,
++                        text="Print",
++                        command=printInput)
++printButton.pack()
++
++# Label Creation
++lbl = tk.Label(frame, text="")
++lbl.pack()
++frame.mainloop()
+\ No newline at end of file
+Index: 23-02.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-02.py b/23-02.py
+new file mode 100644
+--- /dev/null	(date 1678480741895)
++++ b/23-02.py	(date 1678480741895)
+@@ -0,0 +1,76 @@
++# Import module
++from tkinter import *
++
++# Create object
++root = Tk()
++
++# Adjust size
++root.geometry("1960x1080")
++
++# Add image file
++bg = PhotoImage(file="CBGRBaked03.png")
++
++# Show image using label
++label1 = Label(root, image=bg)
++label1.place(x=0, y=0)
++
++#root.create_image(1960/2, 150, image=image, options) and root.create_text(x, y, text="Some text", options)
++#root.create_text(1960/2, 150, text="Sim Fin",)
++
++# Add text
++#label2 = Label(root, text="Sim Fin", bg="white", font='Helvetica 70 bold')
++
++#label2.pack(pady=150)
++
++# Create Frame
++#frame1 = Frame(root, bg="#88cffa")
++#frame1.pack(pady=20)
++
++# Button action
++def button1Function() :
++    print('Submit button is clicked.')
++
++T = Text(root, height = 5, width = 52)
++T.pack()
++
++# Add buttons
++button1 = Button(text="New Simulation", bg="Light blue", font='Helvetica 18 bold')
++button1.place(relx=0.45, rely=0.5)
++#button1.place(x=590, y=1300)
++#button1.pack(pady=30)
++
++button2 = Button(text="Continue", bg="Light blue", font='Helvetica 18 bold')
++#button2.pack(pady=30)
++#button2.place(x=590, y=1500)
++button2.place(relx=0.473, rely=0.6)
++
++button3 = Button(text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
++#button3.pack(pady=30)
++#button3.place(x=590, y=1700)
++button3.place(relx=0.491, rely=0.7)
++
++def printInput():
++    inp = inputtxt.get(1.0, "end-1c")
++    lbl.config(text="Entered: " + inp)
++
++
++# TextBox Creation
++inputtxt = Text(root,
++                   height=5,
++                   width=20)
++
++inputtxt.pack()
++
++# Button Creation
++printButton = Button(root,
++                        text="Print",
++                        command=printInput)
++printButton.pack()
++
++# Label Creation
++lbl = Label(root, text="")
++lbl.pack()
++#frame.mainloop()
++
++# Execute tkinter
++root.mainloop()
+\ No newline at end of file
+Index: 23-03.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-03.py b/23-03.py
+new file mode 100644
+--- /dev/null	(date 1678480741902)
++++ b/23-03.py	(date 1678480741902)
+@@ -0,0 +1,120 @@
++# Import module
++from tkinter import *
++
++# Create object
++root = Tk()
++
++# Adjust size
++root.geometry("1960x1080")
++
++# Add image file
++bg = PhotoImage(file="CBGRBaked03.png")
++
++# Show image using label
++label1 = Label(root, image=bg)
++label1.place(x=0, y=0)
++
++#root.create_image(1960/2, 150, image=image, options) and root.create_text(x, y, text="Some text", options)
++#root.create_text(1960/2, 150, text="Sim Fin",)
++
++# Add text
++#label2 = Label(root, text="Sim Fin", bg="white", font='Helvetica 70 bold')
++
++#label2.pack(pady=150)
++
++# Create Frame
++#frame1 = Frame(root, bg="#88cffa")
++#frame1.pack(pady=20)
++
++# Button action
++#def button1Function() :
++#    print('Submit button is clicked.')
++
++#T = Text(root, height = 5, width = 52)
++#T.pack()
++def start():
++    command=lambda: controller.show_frame(StartPage)
++
++# Add buttons
++button1 = Button(text="New Simulation", bg="Light blue", font='Helvetica 18 bold')
++button1.place(relx=0.45, rely=0.5)
++#button1.place(x=590, y=1300)
++#button1.pack(pady=30)
++
++button2 = Button(text="Continue", bg="Light blue", font='Helvetica 18 bold')
++#button2.pack(pady=30)
++#button2.place(x=590, y=1500)
++button2.place(relx=0.473, rely=0.6)
++
++button3 = Button(text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
++#button3.pack(pady=30)
++#button3.place(x=590, y=1700)
++button3.place(relx=0.491, rely=0.7)
++
++def printInput():
++    inp = inputtxt.get(1.0, "end-1c")
++    lbl.config(text="Entered: " + inp)
++
++
++# TextBox Creation
++inputtxt = Text(root,
++                   height=5,
++                   width=20)
++
++inputtxt.pack()
++
++# Button Creation
++printButton = Button(root,
++                        text="Print",
++                        command=printInput)
++printButton.pack()
++
++# Label Creation
++lbl = Label(root, text="")
++lbl.pack()
++#frame.mainloop()
++
++# Execute tkinter
++root.mainloop()
++
++
++
++class StartPage(Frame):
++
++    def __init__(self, parent, controller):
++
++        Frame.__init__(self, parent)
++        PhotoImage(file="CBGRBaked03.png")
++        label = Label(self, text="Menu", font='Helvetica 18 bold')
++        label.pack(pady=10, padx=10)
++
++        button = Button(self, text="New Game", bg="Light blue", font='Helvetica 18 bold',
++                           command=lambda: controller.show_frame(PageOne))
++        button.pack()
++
++        button2 = Button(self, text="Continue", bg="Light blue", font='Helvetica 18 bold')
++        button2.pack()
++
++        button2 = Button(self, text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
++        button2.pack()
++
++
++class PageOne(Frame):
++
++    def __init__(self, parent, controller):
++        Frame.__init__(self, parent)
++        label = Label(self, text="- Fin Sim -", font='Helvetica 24 bold')
++        label.pack(pady=10, padx=10)
++
++        button1 = Button(self, text="Spend money", bg="Light blue", font='Helvetica 18 bold',)
++
++        button1.pack()
++
++        button2 = Button(self, text="Return to Main Menu", bg="black", fg='white', font='Helvetica 18 bold',
++                            command=lambda: controller.show_frame(StartPage))
++        button2.pack()
++
++
++
++# Execute tkinter
++root.mainloop()
+\ No newline at end of file
+Index: 23-04.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-04.py b/23-04.py
+new file mode 100644
+--- /dev/null	(date 1678480741913)
++++ b/23-04.py	(date 1678480741913)
+@@ -0,0 +1,82 @@
++# Import module
++from tkinter import *
++
++# Create object
++root = Tk()
++
++# Adjust size
++root.geometry("1960x1080")
++
++# Add image file
++bg = PhotoImage(file="CBGRBaked03.png")
++
++# Show image using label
++label1 = Label(root, image=bg)
++label1.place(x=0, y=0)
++
++#root.create_image(1960/2, 150, image=image, options) and root.create_text(x, y, text="Some text", options)
++#root.create_text(1960/2, 150, text="Sim Fin",)
++
++# Add text
++#label2 = Label(root, text="Sim Fin", bg="white", font='Helvetica 70 bold')
++
++#label2.pack(pady=150)
++
++# Create Frame
++#frame1 = Frame(root, bg="#88cffa")
++#frame1.pack(pady=20)
++
++# Button action
++def button1Function() :
++    print('Submit button is clicked.')
++
++T = Text(root, height = 5, width = 52)
++T.pack()
++class StartPage():
++    # Add buttons
++
++    def button1SP(self):
++        button1 = Button(text="New Simulation", bg="Light blue", font='Helvetica 18 bold',
++                         command=lambda: controller.show_frame(PageOne))
++        button1.place(relx=0.45, rely=0.5)
++        #button1.place(x=590, y=1300)
++        #button1.pack(pady=30)
++
++    def button2SP(self):
++        button2 = Button(text="Continue", bg="Light blue", font='Helvetica 18 bold')
++        #button2.pack(pady=30)
++        #button2.place(x=590, y=1500)
++        button2.place(relx=0.473, rely=0.6)
++
++    def button3SP(self):
++        button3 = Button(text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
++        #button3.pack(pady=30)
++        #button3.place(x=590, y=1700)
++        button3.place(relx=0.491, rely=0.7)
++
++def printInput():
++    inp = inputtxt.get(1.0, "end-1c")
++    lbl.config(text="Entered: " + inp)
++
++
++# TextBox Creation
++inputtxt = Text(root,
++                   height=5,
++                   width=20)
++
++inputtxt.pack()
++
++# Button Creation
++printButton = Button(root,
++                        text="Print",
++                        command=printInput)
++printButton.pack()
++
++# Label Creation
++lbl = Label(root, text="")
++lbl.pack()
++
++#frame.mainloop()
++
++# Execute tkinter
++root.mainloop()
+\ No newline at end of file
+Index: 23-06.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-06.py b/23-06.py
+new file mode 100644
+--- /dev/null	(date 1678480741921)
++++ b/23-06.py	(date 1678480741921)
+@@ -0,0 +1,85 @@
++import tkinter as tk
++from tkinter import ttk
++
++class SimFin(tk.Tk):
++    def __init__(self, *args, **kwargs):
++        tk.Tk.__init__(self, *args, **kwargs)
++
++        self.title("Sim Fin")
++
++        # Set up the background image
++        self.background_image = tk.PhotoImage(file="CBGRBaked03.png")
++        self.background_label = tk.Label(self, image=self.background_image)
++        self.background_label.place(relwidth=1, relheight=1)
++
++        # Set up the container for the pages
++        self.container = tk.Frame(self)
++        self.container.pack(side="top", fill="both", expand=True)
++
++        self.frames = {}
++
++        # Define the different pages
++        for F in (StartPage, mainApp, Exit):
++            page_name = F.__name__
++            frame = F(parent=self.container, controller=self)
++            self.frames[page_name] = frame
++
++            # Put the page in the container
++            frame.grid(row=0, column=0, sticky="nsew")
++
++        # Show the start page
++        self.show_frame("StartPage")
++
++    def show_frame(self, page_name):
++        # Show a page for the given page name
++        frame = self.frames[page_name]
++        frame.tkraise()
++
++class StartPage(tk.Frame):
++    def __init__(self, parent, controller):
++        tk.Frame.__init__(self, parent)
++
++        self.controller = controller
++
++        # Set up the label and button for the start page
++        label = tk.Label(self, text="Welcome to the Sample App!")
++        label.pack(pady=10,padx=10)
++
++        button1 = ttk.Button(self, text="Go to Page One",
++                            command=lambda: controller.show_frame("mainApp"))
++        button1.pack()
++
++        button2 = ttk.Button(self, text="Go to Page Two",
++                            command=lambda: controller.show_frame("Exit"))
++        button2.pack()
++
++class mainApp(tk.Frame):
++    def __init__(self, parent, controller):
++        tk.Frame.__init__(self, parent)
++
++        self.controller = controller
++
++        # Set up the label and button for page one
++        label = tk.Label(self, text="This is Page One")
++        label.pack(pady=10,padx=10)
++
++        button = ttk.Button(self, text="Go to Start Page",
++                            command=lambda: controller.show_frame("StartPage"))
++        button.pack()
++
++class Exit(tk.Frame):
++    def __init__(self, parent, controller):
++        tk.Frame.__init__(self, parent)
++
++        self.controller = controller
++
++        # Set up the label and button for page two
++        label = tk.Label(self, text="Exit")
++        label.pack(pady=10,padx=10)
++
++        button = ttk.Button(self, text="Go to Start Page",
++                            command=lambda: controller.show_frame("StartPage"))
++        button.pack()
++
++app = SimFin()
++app.mainloop()
+\ No newline at end of file
+Index: 23-5.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/23-5.py b/23-5.py
+new file mode 100644
+--- /dev/null	(date 1678480741963)
++++ b/23-5.py	(date 1678480741963)
+@@ -0,0 +1,68 @@
++import tkinter as tk
++
++LARGE_FONT = ("Verdana", 12)
++
++class SimFin(tk.Tk):
++
++    def __init__(self, *args, **kwargs):
++        tk.Tk.__init__(self, *args, **kwargs)
++        container = tk.Frame(self)
++
++        container.pack("1960x1080")#side="top", fill="both", expand=True)
++
++        container.grid_rowconfigure(0, weight=1)
++        container.grid_columnconfigure(0, weight=1)
++
++        self.frames = {}
++
++        for F in (StartPage, PageOne):
++            frame = F(container, self)
++
++            self.frames[F] = frame
++
++            frame.grid(row=0, column=0, sticky="nsew")
++
++        self.show_frame(StartPage)
++
++    def show_frame(self, cont):
++        frame = self.frames[cont]
++        frame.tkraise()
++
++
++class StartPage(tk.Frame):
++
++    def __init__(self, parent, controller):
++
++        tk.Frame.__init__(self, parent)
++        label = tk.Label(self, text="Menu", font=LARGE_FONT)
++        label.pack(pady=10, padx=10)
++
++        button = tk.Button(self, text="New Game", bg="Light blue", font='Helvetica 18 bold',
++                           command=lambda: controller.show_frame(PageOne))
++        button.pack()
++
++        button2 = tk.Button(self, text="Continue", bg="Light blue", font='Helvetica 18 bold')
++        button2.pack()
++
++        button2 = tk.Button(self, text="Exit", bg="black", fg='white', font='Helvetica 18 bold')
++        button2.pack()
++
++
++class PageOne(tk.Frame):
++
++    def __init__(self, parent, controller):
++        tk.Frame.__init__(self, parent)
++        label = tk.Label(self, text="- Fin Sim -", font='Helvetica 24 bold')
++        label.pack(pady=10, padx=10)
++
++        button1 = tk.Button(self, text="Spend money", bg="Light blue", font='Helvetica 18 bold',)
++
++        button1.pack()
++
++        button2 = tk.Button(self, text="Return to Main Menu", bg="black", fg='white', font='Helvetica 18 bold',
++                            command=lambda: controller.show_frame(StartPage))
++        button2.pack()
++
++
++app = SimFin()
++app.mainloop()
+\ No newline at end of file
