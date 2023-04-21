@@ -3,7 +3,7 @@ from configparser import ConfigParser
 from tkinter import messagebox, ttk
 
 # TODO: problem with toml(line 335) and openfile(line 155)
-# TODO:  global name(Lines 220-223)
+# TODO: global name(Lines 220-223)
 
 # global name
 name = "void"
