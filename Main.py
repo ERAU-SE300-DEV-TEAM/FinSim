@@ -4,7 +4,6 @@ from tkinter import messagebox
 from configparser import ConfigParser
 
 # import toml
-#
 
 # global name
 name = "void"
