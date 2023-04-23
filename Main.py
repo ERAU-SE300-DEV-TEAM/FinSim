@@ -249,7 +249,7 @@ class MainApp(tk.Frame):
         global spend
         global month
         spend = self.spend_entry.get()
-        month = month +1
+        month = month + 1
         messagebox.showinfo("You paid your bills!", f"You paid {spend}!")
         self.controller.show_frame("MainApp")
 
@@ -285,7 +285,8 @@ def openfile():
         month = data["currentMonth"]
     f.close()
 
-#will this work
+
+# will this work
 # savefile()
 app = SimFin()
 app.mainloop()
